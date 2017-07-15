@@ -1,0 +1,15 @@
+<html>
+  <head>
+  </head>
+  <body>
+    <h1>{{site}}</h1>
+    <h2>{{date}}</h2>
+    {{#each products}}
+      <h3>
+        <h4>{{this.name}}</h4>
+        <h4>{{this.price}}</h4>
+        <h4>{{this.url}}</h4>
+      </h3>
+    {{/each}}
+  </body>
+</html>
