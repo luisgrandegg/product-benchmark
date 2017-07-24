@@ -18,6 +18,6 @@ SiteProducts.getAll()
     return csvExporter.export()
       .then(csvExport => {
         exportWriter.writeExport(`${siteProducts.site_name}.csv`, csvExport);
-      })
+      });
   })
   .finally(database.close);

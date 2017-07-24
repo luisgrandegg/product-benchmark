@@ -8,6 +8,8 @@
     "start:crawler:products": "node scripts/crawler/products.js",
     "start:crawler:urls": "node scripts/crawler/urls.js",
     "start:export:csv": "node scripts/export/csv.js",
+    "linter": "eslint src/**/*.js scripts/**/*.js",
+    "linter:fix": "eslint --fix src/**/*.js scripts/**/*.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -19,6 +21,8 @@
     "googleapis": "^20.1.0",
     "handlebars": "^4.0.10",
     "json2csv": "^3.9.1",
+    "lodash.assign": "^4.2.0",
+    "moment": "^2.18.1",
     "mongoose": "^4.10.8",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",

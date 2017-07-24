@@ -12,20 +12,29 @@ const siteSchema = new mongoose.Schema({
     type: String,
     unique: true
   },
+  active: {
+    type: Boolean,
+    default: true
+  },
   canonical_urls: {
-    type: Array
+    type: Object
   },
   product_urls: {
-    type: Array
+    type: Object
   }
 });
 
 function getAll () {
-  return this.find().exec();
+  return this.find({active: true}).exec();
 }
 
-function updateProductUrls (productUrls) {
-  this.product_urls = productUrls;
+function updateProductUrls (productUrls, siteLocale) {
+  if (!this.product_urls) {
+    this.product_urls = {};
+  }
+  if (!this.product_urls[siteLocale]) {
+    this.product_urls[siteLocale] = productUrls;
+  }
   this.markModified('product_urls');
   return this.save();
 }

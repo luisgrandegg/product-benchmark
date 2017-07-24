@@ -2,9 +2,14 @@
 
 const $ = require('cheerio');
 
+const string = require('../../utils/string');
+
+const Product = require('../../entities/Product');
+
 class ProductParser {
 
-  constructor () {
+  constructor (isProductDetail) {
+    this.isProductDetail = isProductDetail;
     this.parsedContent = [];
   }
 
@@ -12,7 +17,7 @@ class ProductParser {
     this.getProducts(content)
       .each((productIndex, product) => {
         let productData = this.getProductData(product);
-        if (!this.isAlreadyParsed(productData)) {
+        if (!this.isAlreadyParsed(productData) && !this.isEmpty(productData)) {
           this.parsedContent.push(productData);
         }
       });
@@ -25,23 +30,46 @@ class ProductParser {
   
   getProductData (product) {
     //TODO:: weight
-    return {
-      name: this.getProductName(product),
-      price: this.getProductPrice(product),
-      url: this.getProductUrl(product)
-    }
+    return new Product(
+      this.getProductName(product),
+      this.getProductPrice(product),
+      this.getProductWeight(product),
+      this.getProductUrl(product),
+      this.getProductCategories(product),
+      this.getProductId(product)
+    );
   }
 
   getProductName (product) {
-    return $(this.productNameSelector, product).text().trim();
+    return $(this.productNameSelector, product).first().text().trim();
   }
 
   getProductPrice (product) {
     return $(this.productPriceSelector, product).first().text().trim();
   }
+  
+  getProductWeight (product) {
+    return $(this.productWeightSelector, product).first().text().trim();
+  }
 
   getProductUrl (product) {
     return $(this.productUrlSelector, product).attr('href');
+  }
+  
+  getProductId (product) {
+    return $(this.productIdSelector, product).data(this.productIdDataField);
+  }
+  
+  getProductCategories (product) {
+    return $(this.productCategoriesSelector, product).toArray().map(category => {
+      return string.slugify($(category).text().trim());
+    });
+  }
+  
+  isEmpty (product) {
+    return !product.name
+      && !product.price
+      && !product.url;
   }
   
   isAlreadyParsed (product) {
