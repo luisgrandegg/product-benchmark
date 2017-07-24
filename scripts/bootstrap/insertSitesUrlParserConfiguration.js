@@ -16,27 +16,27 @@ Promise.all([
       url_selector: 'a[data-type="category"]'
     }).save(),
     new UrlParser({
-      site_name: 'comptoir-du-terroir',
+      site_slug: 'comptoir-du-terroir',
       menu_selector: '#menu-menu-1',
       url_selector: 'a'
     }).save(),
     new UrlParser({
-      site_name: 'maison-du-pata-negra',
+      site_slug: 'maison-du-pata-negra',
       menu_selector: '#main_nav',
       url_selector: 'a'
     }).save(),
     new UrlParser({
-      site_name: 'jamon-shop',
+      site_slug: 'jamon-shop',
       menu_selector: '#menu',
       url_selector: 'a'
     }).save(),
     new UrlParser({
-      site_name: 'spanish-taste',
+      site_slug: 'spanish-taste',
       menu_selector: '#nav',
       url_selector: 'a'
     }).save(),
     new UrlParser({
-      site_name: 'jambons-oliveras',
+      site_slug: 'jambons-oliveras',
       menu_selector: '#block_top_menu',
       url_selector: 'a'
     }).save()

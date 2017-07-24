@@ -21,12 +21,12 @@ function getAll () {
 }
 
 function getBySiteSlug (siteSlug) {
-  return this.find({
+  return this.findOne({
     site_slug: siteSlug
   }).exec();
 }
 
-siteSchema.statics.getAll = getAll;
-siteSchema.statics.getSiteConfig = getSiteConfig;
+urlParserSchema.statics.getAll = getAll;
+urlParserSchema.statics.getBySiteSlug = getBySiteSlug;
 
-module.exports = mongoose.model('Site', siteSchema);
+module.exports = mongoose.model('UrlParser', urlParserSchema);

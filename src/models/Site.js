@@ -32,9 +32,7 @@ function updateProductUrls (productUrls, siteLocale) {
   if (!this.product_urls) {
     this.product_urls = {};
   }
-  if (!this.product_urls[siteLocale]) {
-    this.product_urls[siteLocale] = productUrls;
-  }
+  this.product_urls[siteLocale] = productUrls;
   this.markModified('product_urls');
   return this.save();
 }

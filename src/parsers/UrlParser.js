@@ -9,11 +9,15 @@ class UrlParser {
   constructor (siteSlug) {
     this.parsedContent = [];
     this.siteSlug = siteSlug;
-    this.config = getConfig();
+    this.config = this.getConfig();
   }
 
   getConfig () {
-    return UrlParserModel.getBySiteSlug(this.siteSlug);
+    return UrlParserModel.getBySiteSlug(this.siteSlug)
+      .then(config => {
+        this.menuSelector = config.menu_selector;
+        this.urlSelector = config.url_selector;
+      });
   }
 
   parseContent (content) {
