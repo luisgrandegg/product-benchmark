@@ -7,13 +7,7 @@ const productParserSchema = new mongoose.Schema({
     type: String,
     unique: true
   },
-  product_overview_selector: {
-    type: String
-  },
   product_detail_selector: {
-    type: String
-  },
-  product_url_selector: {
     type: String
   },
   product_properties: {

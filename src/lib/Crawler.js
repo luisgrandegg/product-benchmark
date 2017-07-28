@@ -30,13 +30,13 @@ class Crawler {
     }
     return this;
   }
-  
+
   onFetch (body, siteUrl) {
     return this.parser.parseContent(body, siteUrl);
   }
 
   crawlSite () {
-    return Promise.each(this.siteUrls.slice(0,1), siteUrl => {
+    return Promise.each(this.siteUrls, siteUrl => {
       this.log(`site crawling ${this.siteName}`);
       this.log(`fetching ${siteUrl}`);
       return rp(siteUrl)

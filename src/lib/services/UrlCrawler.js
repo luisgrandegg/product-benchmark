@@ -18,8 +18,8 @@ class UrlCrawler {
             site.canonical_urls[siteLocale],
             new UrlParser(site.site_slug)
           )
-          .crawlSite()
-          .then(siteUrls => site.updateProductUrls(siteUrls, siteLocale));
+            .crawlSite()
+            .then(siteUrls => site.updateProductUrls(siteUrls, siteLocale));
         });
       });
   }

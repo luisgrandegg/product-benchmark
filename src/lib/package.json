@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "linter": "eslint src/**/*.js scripts/**/*.js",
-    "linter:fix": "eslint --fix src/**/*.js scripts/**/*.js",
+    "linter": "eslint ./**/*.js",
+    "linter:fix": "eslint --fix ./**/*.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

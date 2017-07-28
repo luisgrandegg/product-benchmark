@@ -5,6 +5,7 @@ const Promise = require('bluebird');
 const Crawler = require('../Crawler');
 const Site = require('../models/Site');
 const SiteProducts = require('../models/SiteProducts');
+const ProductOverviewParser = require('../parsers/ProductOverviewParser');
 const ProductParser = require('../parsers/ProductParser');
 
 class ProductCrawler {
@@ -22,9 +23,9 @@ class ProductCrawler {
         });
       });
   }
-  
+
   crawlProductsOverviews (site, siteLocale) {
-    let productParser = new ProductParser(site.site_slug);
+    let productParser = new ProductOverviewParser(site.site_slug);
     return new Crawler(
       site.site_slug,
       site.product_urls[siteLocale],
@@ -37,7 +38,7 @@ class ProductCrawler {
     return new Crawler(
       site.site_slug,
       productsUrls,
-      new ProductParser(site.site_slug, true)
+      new ProductParser(site.site_slug)
     ).crawlSite();
   }
 

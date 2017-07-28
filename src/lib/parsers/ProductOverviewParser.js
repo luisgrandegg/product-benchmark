@@ -1,5 +1,8 @@
 'use strict';
 
+const $ = require('cheerio');
+const Promise = require('bluebird');
+
 const ProductOverviewParserModel = require('../models/ProductOverviewParser');
 
 class ProductOverviewParser {
@@ -8,7 +11,7 @@ class ProductOverviewParser {
     this.siteSlug = siteSlug;
     this.config = this.getConfig();
   }
-  
+
   getConfig () {
     return ProductOverviewParserModel.getBySiteSlug(this.siteSlug)
       .then(parserConfig => {
@@ -16,16 +19,16 @@ class ProductOverviewParser {
         this.productUrlSelector = parserConfig.product_url_selector;
       });
   }
-  
+
   parseContent (content) {
     return this.getConfig()
-      .then(() => getProductsUrls(content));
+      .then(() => this.getProductsUrls(content));
   }
-  
+
   getProducts (content) {
     return $(this.productSelector, content);
   }
-  
+
   getProductsUrls (content) {
     let $products = this.getProducts(content).toArray();
     return Promise.map($products, $product => {

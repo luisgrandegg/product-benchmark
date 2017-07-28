@@ -1,7 +1,6 @@
 'use strict';
 
 const mongoose = require('mongoose');
-const string = require('../utils/string');
 
 const urlParserSchema = new mongoose.Schema({
   site_slug: {

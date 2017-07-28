@@ -10,9 +10,8 @@ const ProductParserProperty = require('../entities/ProductParserProperty');
 
 class ProductParser {
 
-  constructor (siteSlug, isProductDetail, loggingEnabled) {
+  constructor (siteSlug, loggingEnabled) {
     this.parsedContent = [];
-    this.isProductDetail = isProductDetail;
     this.siteSlug = siteSlug;
     this.parserRules = this.getParserRules();
     this.loggingEnabled = true;
@@ -31,12 +30,9 @@ class ProductParser {
   getParserRules () {
     return ProductParserModel.getBySiteSlug(this.siteSlug)
       .then(parserConfig => {
-        this.productSelector = parserConfig.product_overview_selector;
+        this.productSelector = parserConfig.product_detail_selector;
         this.productProperties = parserConfig.product_properties;
         this.productUrlSelector = parserConfig.product_url_selector;
-        if (this.isProductDetail) {
-          this.productSelector = parserConfig.product_detail_selector;
-        }
       });
   }
 
@@ -52,48 +48,39 @@ class ProductParser {
               this.parsedContent.push(product);
             }
           });
-        })
+      })
         .then(() => this.parsedContent);
     });
   }
-  
+
   parseProduct ($product, content) {
     let product = new Product();
     return Promise.each(this.productProperties, productProperty => {
       return new ProductParserProperty(
-          productProperty.data_selection_operations,
-          productProperty.data_selection_filtering_operations,
-          productProperty.data_extraction_operations,
-          productProperty.data_filtering_operations,
-          productProperty.property_name
-        )
+        productProperty.data_selection_operations,
+        productProperty.data_selection_filtering_operations,
+        productProperty.data_extraction_operations,
+        productProperty.data_filtering_operations,
+        productProperty.property_name
+      )
         .applyOperations($product, content)
         .then(data => {
           product[productProperty.property_name] = data;
         });
-      })
+    })
       .then(() => product);
   }
-  
+
   getProducts (content) {
     return $(this.productSelector, content);
   }
-  
-  getProductsUrls (content) {
-    let $products = this.getProducts(content).toArray();
-    return Promise.map($products, $product => {
-      let productUrl = $(this.productUrlSelector, $($product)).attr('href');
-      this.parsedContent.push(productUrl);
-      return productUrl;
-    });
-  }
-  
+
   isEmpty (product) {
     return !product.name
       && !product.price
       && !product.url;
   }
-  
+
   isAlreadyParsed (product) {
     return this.parsedContent
       .filter(parsedProduct => {

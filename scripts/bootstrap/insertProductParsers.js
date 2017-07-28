@@ -12,9 +12,7 @@ const database = new Database(databaseConfig.dbConnection);
 Promise.all([
     new ProductParser({
       site_slug: 'jamonarium',
-      product_overview_selector: '.product-container',
       product_detail_selector: '.primary_block',
-      product_url_selector: '.product-name',
       product_properties: [
         new Object({
           site_slug: 'jamonarium',
@@ -123,6 +121,6 @@ Promise.all([
     }).save()
   ])
   .then(() => {
-    console.log('all sites inserted');
+    console.log('All Product Parsers inserted');
     database.close();
   });
