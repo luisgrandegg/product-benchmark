@@ -1,27 +1,10 @@
 'use strict';
 
-const Promise = require('bluebird');
-
-const Database = require('../../src/Database');
-const Site = require('../../src/models/Site');
-const Crawler = require('../../src/crawlers/Crawler');
-const UrlParser = require('../../src/parsers/UrlParser');
+const Benchmark = require('../../src/lib');
 
 const databaseConfig = require('../../config/mongo');
 
-const database = new Database(databaseConfig.dbConnection);
+let benchmark = new Benchmark(databaseConfig.dbConnection);
 
-Site.getAll()
-  .each(site => {
-    let siteLocales = Object.keys(site.canonical_urls);
-    return Promise.each(siteLocales, siteLocale => {
-      return new Crawler(
-        site.site_slug,
-        site.canonical_urls[siteLocale],
-        new UrlParser(site.site_slug)
-      )
-      .crawlSite()
-      .then(siteUrls => site.updateProductUrls(siteUrls, siteLocale));
-    });
-  })
-  .finally(database.close);
+benchmark.crawlUrls()
+  .finally(() => benchmark.database.close());

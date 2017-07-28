@@ -1,10 +1,10 @@
 'use strict';
 
-const Database = require('../../src/Database');
-const Crawler = require('../../src/Crawler');
-const SiteProducts = require('../../src/models/SiteProducts');
-const CsvExporter = require('../../src/exporters/CsvExporter');
-const ExportWriter = require('../../src/exporters/ExportWriter');
+const Database = require('../../src/lib/Database');
+const Crawler = require('../../src/lib/Crawler');
+const SiteProducts = require('../../src/lib/models/SiteProducts');
+const CsvExporter = require('../../src/lib/exporters/CsvExporter');
+const ExportWriter = require('../../src/lib/exporters/ExportWriter');
 
 const databaseConfig = require('../../config/mongo');
 const googleDriveConfig = require('../../config/google_drive');

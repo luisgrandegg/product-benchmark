@@ -1,0 +1,25 @@
+{
+  "name": "utils_benchmark",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "linter": "eslint src/**/*.js scripts/**/*.js",
+    "linter:fix": "eslint --fix src/**/*.js scripts/**/*.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "cheerio": "^1.0.0-rc.2",
+    "eslint": "^4.3.0",
+    "json2csv": "^3.9.1",
+    "lodash.isarray": "^4.0.0",
+    "moment": "^2.18.1",
+    "mongoose": "^4.10.8",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1",
+    "slug": "^0.9.1"
+  }
+}
