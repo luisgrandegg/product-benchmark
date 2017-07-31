@@ -1,3 +1,3 @@
 'use strict';
 
-module.exports = require('./Benchmark');
+module.exports = require('./src/Benchmark');

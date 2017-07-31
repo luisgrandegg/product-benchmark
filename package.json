@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "preupdate": "(cd src/lib && exec npm update)",
-    "preinstall": "(cd src/lib && exec npm install)",
+    "preupdate": "(cd src/lib && exec npm update) && (cd src/app && exec npm update)",
+    "preinstall": "(cd src/lib && exec npm install) && (cd src/app && exec npm install)",
     "start:crawler": "npm run start:crawler:urls && npm run start:crawler:products",
     "start:crawler:products": "node scripts/crawler/products.js",
     "start:crawler:urls": "node scripts/crawler/urls.js",
@@ -16,5 +16,8 @@
   "license": "ISC",
   "dependencies": {
     "bluebird": "^3.5.0"
+  },
+  "devDependencies": {
+    "mocha": "^3.4.2"
   }
 }
