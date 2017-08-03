@@ -2,8 +2,8 @@
 
 const Promise = require('bluebird');
 
-const Database = require('../../src/lib/Database');
-const ProductParser = require('../../src/lib/models/ProductParser');
+const Database = require('../../src/lib/src/Database');
+const ProductParser = require('../../src/lib/src/models/ProductParser');
 
 const databaseConfig = require('../../config/mongo');
 
